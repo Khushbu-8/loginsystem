@@ -1,20 +1,33 @@
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Login from './Pages/Login'
-import Home from './Pages/Home'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Home from "./components/Home"
+import Header from "./components/Header"
+import Login from "./components/Login"
+import Registration from "./components/Registration"
+import Profile from "./components/Profile"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoute from "./components/ProtectedRoute"
 
-function App() {
+export default function App() {
+
   return (
-  <>
-   <div align='center'>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-    </Routes>
-    </BrowserRouter>
-   </div>
-  </>
+    <>
+      <ToastContainer />
+      <Router>
+        <Header />
+        <Routes>
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/profile" element={<Profile />} />
+
+          </Route>
+
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
+
+    </>
   )
 }
-
-export default App
